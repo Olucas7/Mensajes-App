@@ -57,14 +57,9 @@ public class MensajesDAO {
                             rs.getString("autor_mensaje"),rs.getString("fecha_mensaje"));
                     
                 }
-                
-                
             }catch(SQLException e){
                 System.out.println(e);
             }
-            
-            
-            
         }catch(SQLException e){
             System.out.println("Data Base Connection Failed");
             System.out.println(e);
