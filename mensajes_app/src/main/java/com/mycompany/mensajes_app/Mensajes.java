@@ -46,5 +46,4 @@ public class Mensajes {
         this.fecha_mensaje = fecha_mensaje;
     }
     
-    
 }
