@@ -6,10 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MensajesDAO {
-    
-    public static boolean crearMensajeDB(Mensajes mensaje){
-        ConnectionDB db_connect = new ConnectionDB();
-        
+    ConnectionDB db_connect;
+
+    MensajesDAO(ConnectionDB connection){
+        this.db_connect = connection;
+    }
+    public boolean crearMensajeDB(Mensajes mensaje){
+        System.out.println("Antes del try");
+
         try(Connection connection = db_connect.get_connection()){
             PreparedStatement ps =null;
             try{
@@ -24,19 +28,17 @@ public class MensajesDAO {
                 System.out.println(ex);
                 return false;
             }
-            
+
             
         }catch(SQLException e){
             System.out.println(e);
             return false;
         }
-        
+
     }
 
-    public static void leerMensajesDB(){
-        
-        ConnectionDB db_connect = new ConnectionDB();
-        
+    public void leerMensajesDB(){
+
         try(Connection connection = db_connect.get_connection()){
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -62,9 +64,9 @@ public class MensajesDAO {
         
     }
     
-    public static void borrarMensajeDB(int id_mensaje){
-        ConnectionDB db_connection = new ConnectionDB();
-        try(Connection connection = db_connection.get_connection()){
+    public void borrarMensajeDB(int id_mensaje){
+
+        try(Connection connection = db_connect.get_connection()){
             PreparedStatement ps = null;
             try{
                 String query = "DELETE FROM Mensajes WHERE Mensajes.id_mensajes = ?";
@@ -82,9 +84,9 @@ public class MensajesDAO {
         
     }
     
-    public static void actualizarMensajeDB(Mensajes mensaje){
-        ConnectionDB db_connection = new ConnectionDB();
-        try(Connection connection = db_connection.get_connection()){
+    public void actualizarMensajeDB(Mensajes mensaje){
+
+        try(Connection connection = db_connect.get_connection()){
             PreparedStatement ps = null;
             try{
                 String query = "UPDATE Mensajes SET mensaje = ?, autor_mensaje = ? WHERE id_mensajes = ?";

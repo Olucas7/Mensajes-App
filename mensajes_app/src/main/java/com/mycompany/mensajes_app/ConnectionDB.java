@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionDB {
-    
+    Connection connection = null;
     public Connection get_connection(){
-        Connection connection = null;
+
+        System.out.println("Get connection method");
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mensajes_app","root","");
         }catch(SQLException e){

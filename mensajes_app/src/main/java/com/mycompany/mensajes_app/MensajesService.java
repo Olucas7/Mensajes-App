@@ -6,7 +6,13 @@ import java.util.Scanner;
  * @author oscarlucas7
  */
 public class MensajesService {
-    public static void crearMensaje(){
+    MensajesDAO mensajesDAO;
+
+    MensajesService(MensajesDAO mensajesDAO){
+        this.mensajesDAO = mensajesDAO;
+    }
+
+    public void crearMensaje(){
         Mensajes newPost = new Mensajes();
         Scanner sc = new Scanner(System.in);
         System.out.println("------------------");
@@ -16,21 +22,21 @@ public class MensajesService {
         String postAutor = sc.nextLine();
         newPost.setMensajes(post);
         newPost.setAutor_mensaje(postAutor);
-        MensajesDAO.crearMensajeDB(newPost);
+        mensajesDAO.crearMensajeDB(newPost);
     }
     
-    public static void listarMensajes(){
-        MensajesDAO.leerMensajesDB();
+    public void listarMensajes(){
+        mensajesDAO.leerMensajesDB();
     }
     
-    public static void borrarMensaje(){
+    public void borrarMensaje(){
         Scanner sc = new Scanner(System.in);
         do{
             System.out.println("Insert id_message to delete");
             String userImput = sc.nextLine();
             try{
                 int id_message = Integer.parseInt(userImput);
-                MensajesDAO.borrarMensajeDB(id_message);
+                mensajesDAO.borrarMensajeDB(id_message);
                 System.out.println("Message deleted successful");
                 break;
             }catch(NumberFormatException e){
@@ -42,10 +48,10 @@ public class MensajesService {
         
     }
     
-    public static void editarMensaje(){
+    public void editarMensaje(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Update Message...");
-        MensajesDAO.leerMensajesDB();
+        mensajesDAO.leerMensajesDB();
         System.out.println("\n|||||||||||||||||||");
         int response = 1;
         int id_mensajes = 0;
@@ -65,7 +71,7 @@ public class MensajesService {
         updatedMessage.setMensajes(sc.nextLine());
         System.out.println("Autor: ");
         updatedMessage.setAutor_mensaje(sc.nextLine());
-        MensajesDAO.actualizarMensajeDB(updatedMessage);
+        mensajesDAO.actualizarMensajeDB(updatedMessage);
         
     }
     

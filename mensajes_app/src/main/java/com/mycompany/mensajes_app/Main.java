@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         ConnectionDB connection = new ConnectionDB();
-        
+        MensajesDAO mensajesDAO = new MensajesDAO(connection);
+        MensajesService mensajesService = new MensajesService(mensajesDAO);
         try(Connection ctn = connection.get_connection()){
             System.out.println("successful connection");
         }catch(SQLException e){
@@ -30,16 +31,16 @@ public class Main {
             
             switch(response){
                 case 1:
-                    MensajesService.crearMensaje();
+                    mensajesService.crearMensaje();
                     break;
                 case 2:
-                    MensajesService.listarMensajes();
+                    mensajesService.listarMensajes();
                     break;
                 case 3:
-                    MensajesService.borrarMensaje();
+                    mensajesService.borrarMensaje();
                     break;
                 case 4:
-                    MensajesService.editarMensaje();
+                    mensajesService.editarMensaje();
                     break;
                 case 5:
                     break;
