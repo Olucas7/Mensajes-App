@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class MensajesDAO {
     
-    public static void crearMensajeDB(Mensajes mensaje){
+    public static boolean crearMensajeDB(Mensajes mensaje){
         ConnectionDB db_connect = new ConnectionDB();
         
         try(Connection connection = db_connect.get_connection()){
@@ -19,17 +19,20 @@ public class MensajesDAO {
                 ps.setString(2, mensaje.getAutor_mensaje());
                 ps.executeUpdate();
                 System.out.println("mensaje creado");
+                return true;
             }catch(SQLException ex){
                 System.out.println(ex);
+                return false;
             }
             
             
         }catch(SQLException e){
             System.out.println(e);
+            return false;
         }
         
     }
-    
+
     public static void leerMensajesDB(){
         
         ConnectionDB db_connect = new ConnectionDB();
